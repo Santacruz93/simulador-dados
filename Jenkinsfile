@@ -5,6 +5,7 @@ pipeline {
         registry = "josesantacruz1993/simulador-dados"
         registryCredentials = "dockerhub"
         project = "Actividad_3"
+        projectVersion = "1.0"
         repository = "https://github.com/Santacruz93/simulador-dados.git"
         repositoryCredentials = "github"
     }
@@ -22,6 +23,23 @@ pipeline {
                     git branch: 'feature/rol',
                         credentialsId: repositoryCredentials,
                         url: repository
+                }
+            }
+        }
+
+        stage('Code Analysis') {
+            environment {
+                scannerHome = tool 'Sonar'
+            }
+            steps {
+                script {
+                    withSonarQubeEnv('Sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=$project \
+                        -Dsonar.projectName=$project \
+                        -Dsonar.projectVersion=$projectVersion \
+                        -Dsonar.sources=./"
+                    }
                 }
             }
         }
