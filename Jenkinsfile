@@ -3,7 +3,7 @@ pipeline{
     environment{
         registry= "josesantacruz1993/simulador-dados"
         registryCredentials="dockerhub"
-        project="actividad_3"
+        project="Actividad_3"
         projectVersion="1.0"
         repository="https://github.com/Santacruz93/simulador-dados.git"
         repositoryCredentials="github"
